@@ -26,13 +26,13 @@ O **AngularCoin** é um aplicativo web desenvolvido para a atividade final compl
 *Substitua os links abaixo pelas imagens das telas quando o projeto estiver finalizado (Mínimo de 3 imagens exigidas).*
 
 #### 1. Tela Principal (Conversor)
-![Conversor de Moedas](https://via.placeholder.com/800x450?text=Print+da+Tela+Principal+Aqui)
+![Conversor de Moedas](docs/conversor.png)
 
 #### 2. Histórico de Conversões
-![Histórico Local](https://via.placeholder.com/800x450?text=Print+do+Histórico+Aqui)
+![Histórico Local](docs/historico.png)
 
 #### 3. Modo Offline / Gráficos
-![Funcionalidades Adicionais](https://via.placeholder.com/800x450?text=Print+da+Tela+Offline+ou+Gráficos)
+![Funcionalidades Adicionais](docs/grafico.png)
 
 ---
 
