@@ -78,4 +78,28 @@ export class CurrencyService {
   clearHistory(): void {
     localStorage.removeItem('angularcoin_history');
   }
+
+  // Gera dados históricos dos últimos 7 dias com base na taxa atual para alimentar o gráfico
+  getHistoricalData(base: string, target: string, currentRate: number): { labels: string[], data: number[] } {
+    const labels: string[] = [];
+    const data: number[] = [];
+    const today = new Date();
+
+    // Gera pontos para os últimos 7 dias com pequenas flutuações simuladas de mercado
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(today.getDate() - i);
+      labels.push(d.toLocaleDateString('pt-BR', { day: 'numeric', month: 'short' }));
+
+      // No dia de hoje, usa a taxa exata atual obtida da API
+      if (i === 0) {
+        data.push(currentRate);
+      } else {
+        const randomVariation = (Math.random() - 0.5) * 0.02; 
+        data.push(Number((currentRate * (1 + randomVariation)).toFixed(4)));
+      }
+    }
+
+    return { labels, data };
+  }
 }
