@@ -1,0 +1,225 @@
+/* Container Principal centralizado na tela */
+.converter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  min-height: 70vh;
+}
+
+/* O Card do Conversor */
+.converter-card {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  padding: 30px;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+h2 {
+  color: #f8fafc;
+  margin-bottom: 5px;
+  font-size: 1.8rem;
+}
+
+.subtitle {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  margin-bottom: 25px;
+}
+
+/* Formulário e Grupos de Input */
+.converter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 100%;
+}
+
+.input-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #94a3b8;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Input de valor mantido com tamanho padrão */
+input {
+  padding: 12px;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #0f172a;
+  color: #f8fafc;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+/* Select otimizado para evitar cortes no texto das moedas */
+select {
+  padding: 12px 24px 12px 8px;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  font-size: 0.88rem; 
+  background-color: #0f172a;
+  color: #f8fafc;
+  transition: border-color 0.2s;
+  width: 100%;
+  cursor: pointer;
+  text-overflow: ellipsis;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #38bdf8;
+  background-color: #0f172a;
+}
+
+/* Layout Responsivo para Seleção de Moedas */
+.currency-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+/* Container do botão de inversão */
+.invert-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Botão de inverter moedas tratado para conter o SVG */
+.btn-invert {
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  min-width: 44px; 
+  min-height: 44px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+/* Estilização do Ícone SVG interno */
+.icon-swap {
+  width: 20px;
+  height: 20px;
+  color: #94a3b8; 
+  transition: color 0.2s ease;
+}
+
+.btn-invert:hover {
+  background-color: #334155;
+  border-color: #38bdf8;
+  transform: rotate(180deg);
+}
+
+.btn-invert:hover .icon-swap {
+  color: #38bdf8;
+}
+
+/* Botão de Converter Principal */
+.btn-convert {
+  background-color: #38bdf8;
+  color: #0f172a;
+  border: none;
+  border-radius: 6px;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 10px;
+}
+
+.btn-convert:hover {
+  background-color: #0ea5e9;
+}
+
+/* Caixa de Resultado Premium */
+.result-box {
+  margin-top: 25px;
+  padding: 20px;
+  background-color: #0f172a; 
+  border: 1px solid #334155;
+  border-radius: 8px;
+  text-align: left; 
+}
+
+.result-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.result-display {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 12px;
+}
+
+.amount-original {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.result-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #38bdf8;   
+  margin: 0;
+}
+
+.result-update {
+  font-size: 0.72rem;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+}
+
+.result-update span {
+  color: #4ade80;
+  font-weight: 600;
+}
+
+/* --- MEDIA QUERY (DESKTOP) --- */
+@media (min-width: 576px) {
+  .currency-selection {
+    flex-direction: row; 
+    align-items: stretch; 
+    justify-content: space-between;
+  }
+
+  .currency-selection .input-group {
+    flex: 1;
+  }
+  
+  .invert-container {
+    padding-top: 24px;
+  }
+}

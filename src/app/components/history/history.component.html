@@ -1,0 +1,49 @@
+<div class="history-container">
+  <div class="history-card">
+    <div class="history-header">
+      <h2>📜 Histórico de Conversões</h2>
+      <button class="btn-secondary" routerLink="/converter">← Voltar</button>
+    </div>
+    
+    <p class="subtitle">Suas últimas atividades de câmbio salvas</p>
+
+    @if (errorMessage) {
+      <div style="background-color: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; color: #ef4444; padding: 12px; border-radius: 6px; margin-bottom: 15px; font-size: 0.85rem;">
+        ⚠️ {{ errorMessage }}
+      </div>
+    }
+
+    @if (historyList.length > 0) {
+      <div class="table-responsive">
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Origem</th>
+              <th></th>
+              <th>Destino</th>
+              <th class="hide-mobile">Taxa Aplicada</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of historyList; track item.id) {
+              <tr>
+                <td class="date-col">{{ item.date }}</td>
+                <td class="amount-col from">{{ item.fromAmount }}</td>
+                <td class="arrow-col">→</td>
+                <td class="amount-col to">{{ item.toAmount }}</td>
+                <td class="rate-col hide-mobile">{{ item.rate }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      
+      <button class="btn-clear" (click)="clearHistory()">Limpar Histórico</button>
+    } @else {
+      <div class="empty-state">
+        <p>Nenhuma conversão encontrada no histórico.</p>
+      </div>
+    }
+  </div>
+</div>

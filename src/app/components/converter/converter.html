@@ -1,0 +1,100 @@
+<div class="converter-container">
+  <div class="converter-card">
+    <h2>🪙 AngularCoin</h2>
+    <p class="subtitle">Conversão de Moedas em Tempo Real</p>
+
+    <div style="text-align: right; margin-bottom: 15px;">
+      <a routerLink="/history" style="color: #38bdf8; text-decoration: none; font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
+        <span>📜 Ver Histórico</span>
+      </a>
+    </div>
+
+    @if (isOfflineMode) {
+      <div style="background-color: rgba(245, 158, 11, 0.1); border: 1px solid #f59e0b; color: #f59e0b; padding: 12px; border-radius: 6px; margin-bottom: 15px; font-size: 0.85rem;">
+        🌐 Você está offline. O app está utilizando as últimas taxas salvas localmente.
+      </div>
+    }
+
+    @if (errorMessage) {
+      <div style="background-color: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; color: #ef4444; padding: 12px; border-radius: 6px; margin-bottom: 15px; font-size: 0.85rem;">
+        ⚠️ {{ errorMessage }}
+      </div>
+    }
+
+    <form class="converter-form" (submit)="handleConvert($event)">
+      <div class="input-group">
+        <label for="amount">Valor a converter:</label>
+        <input 
+          type="number" 
+          id="amount" 
+          placeholder="Ex: 100" 
+          min="0" 
+          [(ngModel)]="amount" 
+          name="amount" 
+          required
+        >
+      </div>
+
+      <div class="currency-selection">
+        <div class="input-group">
+          <label for="fromCurrency">De:</label>
+          <input 
+            type="text" 
+            placeholder="🔍 Buscar moeda..." 
+            [(ngModel)]="searchFrom" 
+            name="searchFrom" 
+            (input)="filterFromList()"
+            style="margin-bottom: 6px; padding: 8px; font-size: 0.85rem; background: #1e293b; border: 1px solid #334155; color: #f8fafc; border-radius: 6px;"
+          >
+          <select id="fromCurrency" [(ngModel)]="fromCurrency" name="fromCurrency" (change)="prefetchRates()">
+            @for (currency of filteredFromCurrencies; track currency) {
+              <option [value]="currency">{{ getCurrencyLabel(currency) }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="invert-container">
+          <button type="button" class="btn-invert" title="Inverter Moedas" (click)="invertCurrencies()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="icon-swap">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="input-group">
+          <label for="toCurrency">Para:</label>
+          <input 
+            type="text" 
+            placeholder="🔍 Buscar moeda..." 
+            [(ngModel)]="searchTo" 
+            name="searchTo" 
+            (input)="filterToList()"
+            style="margin-bottom: 6px; padding: 8px; font-size: 0.85rem; background: #1e293b; border: 1px solid #334155; color: #f8fafc; border-radius: 6px;"
+          >
+          <select id="toCurrency" [(ngModel)]="toCurrency" name="toCurrency">
+            @for (currency of filteredToCurrencies; track currency) {
+              <option [value]="currency">{{ getCurrencyLabel(currency) }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-convert" [disabled]="isLoading">
+        {{ isLoading ? 'Buscando cotação...' : 'Converter' }}
+      </button>
+    </form>
+
+    @if (isConverted && !errorMessage) {
+      <div class="result-box animate-fade-in">
+        <p class="result-label">Resultado da Conversão</p>
+        <div class="result-display">
+          <span class="amount-original">{{ computedAmountOriginal }} =</span>
+          <h3 class="result-value">{{ computedResultValue }}</h3>
+        </div>
+        <p class="result-update">
+          <span>Tarifa comercial</span> • Dados updated em tempo real
+        </p>
+      </div>
+    }
+  </div>
+</div>
