@@ -82,10 +82,9 @@ export class Converter implements OnInit {
       return fullLabel.includes(searchLog);
     });
 
-    // CORREÇÃO: Se a moeda atual sumiu do filtro, seleciona automaticamente a primeira disponível
     if (this.filteredFromCurrencies.length > 0 && !this.filteredFromCurrencies.includes(this.fromCurrency)) {
       this.fromCurrency = this.filteredFromCurrencies[0];
-      this.prefetchRates(); // Atualiza as taxas para a nova moeda selecionada
+      this.prefetchRates();
     }
   }
 
@@ -96,7 +95,6 @@ export class Converter implements OnInit {
       return fullLabel.includes(searchLog);
     });
 
-    // CORREÇÃO: Se a moeda atual sumiu do filtro, seleciona automaticamente a primeira disponível
     if (this.filteredToCurrencies.length > 0 && !this.filteredToCurrencies.includes(this.toCurrency)) {
       this.toCurrency = this.filteredToCurrencies[0];
     }
@@ -129,7 +127,13 @@ export class Converter implements OnInit {
       event.preventDefault();
     }
 
-    if (!this.amount || this.amount <= 0) return;
+    // Validação do campo de valor vazio, menor ou igual a zero
+    if (!this.amount || this.amount <= 0) {
+      this.errorMessage = 'Por favor, insira um valor válido maior que zero para realizar a conversão.';
+      this.isConverted = false;
+      this.cdr.detectChanges();
+      return;
+    }
 
     this.isLoading = true;
     this.errorMessage = null;
